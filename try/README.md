@@ -5,8 +5,7 @@ Example
 package main
 
 import (
-	"fmt"
-	//  "time"
+  "fmt"
   "main/try"
 )
 
