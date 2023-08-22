@@ -106,7 +106,7 @@ func (l *Log) Msg(message string) {
 		f.WriteString(string(b) + "\n")
 	} else {
 		lg := log.New(f, "", log.LstdFlags)
-		output := fmt.Sprintf("[%v]\t%s\t%s\t%d\t%s\t%s\n", l.LogLevel, l.LogProtocol, l.LogMethod, l.StatusCode, l.Dur, message)
+		output := fmt.Sprintf("[%v]\t%s\t%s\t%d\t%s\t%s", l.LogLevel, l.LogProtocol, l.LogMethod, l.StatusCode, l.Dur, message)
 		log.Println(output)
 		lg.Println(output)
 	}
