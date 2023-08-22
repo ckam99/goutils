@@ -32,6 +32,7 @@ type Log struct {
 	LogMethod   string        `json:"method"`
 	StatusCode  int           `json:"code"`
 	Dur         time.Duration `json:"duration"`
+	Message     any           `json:"message"`
 	Time        string        `json:"time"`
 	format      Format
 	outputPath  string
@@ -88,7 +89,8 @@ func (l *Log) Output(filePath string) *Log {
 	return l
 }
 
-func (l *Log) Msg(message string) {
+func (l *Log) Msg(message any) {
+	l.Message = message
 	if l.outputPath == "" {
 		l.outputPath = filepath.Join(env.GetString("LOG_DIR", "./"), "logs.log")
 	}
@@ -106,7 +108,7 @@ func (l *Log) Msg(message string) {
 		f.WriteString(string(b) + "\n")
 	} else {
 		lg := log.New(f, "", log.LstdFlags)
-		output := fmt.Sprintf("[%v]\t%s\t%s\t%d\t%s\t%s", l.LogLevel, l.LogProtocol, l.LogMethod, l.StatusCode, l.Dur, message)
+		output := fmt.Sprintf("[%v]\t%s\t%s\t%d\t%s\t%v", l.LogLevel, l.LogProtocol, l.LogMethod, l.StatusCode, l.Dur, message)
 		log.Println(output)
 		lg.Println(output)
 	}
