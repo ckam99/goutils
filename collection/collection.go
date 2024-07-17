@@ -95,12 +95,12 @@ func (c *Collection[T]) Contains(value T) bool {
 	return false
 }
 
-func Map[T interface{}](t []T, f func(T, int) T) []T {
-	var tp []T
-	for k, v := range t {
-		tp = append(tp, f(v, k))
+func Map[T any, V any](arr []T, f func(T, int64) V) []V {
+	var tmp []V
+	for k, v := range arr {
+		tmp = append(tmp, f(v, int64(k)))
 	}
-	return tp
+	return tmp
 }
 
 func Filter[T interface{}](t []T, f func(T, int) bool) []T {
